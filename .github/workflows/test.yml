@@ -1,0 +1,50 @@
+name: Validate skill
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install LaTeX
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y latexmk texlive-latex-base texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended
+      - name: Run behavioral tests
+        run: python3 latex-paper-studio/scripts/test_studio.py
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: latex-paper-studio/assets/package-lock.json
+      - name: Verify frontend build
+        working-directory: latex-paper-studio/assets
+        run: |
+          npm ci
+          node build.mjs
+      - name: Package the installable skill
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          from zipfile import ZipFile, ZIP_DEFLATED
+          root = Path('latex-paper-studio')
+          Path('dist').mkdir(exist_ok=True)
+          with ZipFile('dist/latex-paper-studio.zip', 'w', ZIP_DEFLATED) as archive:
+              for path in sorted(root.rglob('*')):
+                  if path.is_file() and not {'node_modules', '__pycache__'}.intersection(path.parts):
+                      archive.write(path, path.as_posix())
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: latex-paper-studio
+          path: dist/latex-paper-studio.zip

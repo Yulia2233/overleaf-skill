@@ -1,0 +1,19 @@
+{
+  "dependencies": {
+    "@codemirror/language": "6.13.1",
+    "@codemirror/legacy-modes": "6.5.5",
+    "codemirror": "6.0.2",
+    "esbuild": "0.28.2",
+    "pdfjs-dist": "6.5.438",
+    "@codemirror/state": "6.7.6",
+    "@codemirror/view": "6.43.15"
+  },
+  "name": "latex-paper-studio-ui",
+  "private": true,
+  "engines": {
+    "node": ">=22.13.0"
+  },
+  "scripts": {
+    "build": "node build.mjs"
+  }
+}

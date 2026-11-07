@@ -1,0 +1,4 @@
+interface:
+  display_name: "LaTeX 论文工作台"
+  short_description: "按会议官方模板写论文，网页编辑、PDF 批注、Agent 修改与 Overleaf 导出"
+  default_prompt: "使用 $latex-paper-studio 创建论文项目，先确认会议或期刊及模板，再打开网页写作工作台。"

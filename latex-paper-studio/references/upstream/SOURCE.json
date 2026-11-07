@@ -1,0 +1,11 @@
+{
+  "repository": "https://github.com/Master-cai/Research-Paper-Writing-Skills",
+  "commit": "77e7c2c1ba06f7d71844873147665437a03aac1b",
+  "retrieved": "2026-11-08",
+  "license": "MIT",
+  "files": "Unmodified upstream Markdown and LICENSE",
+  "renamed_files": {
+    "research-paper-writing/SKILL.md": "research-paper-writing/UPSTREAM-SKILL.md"
+  },
+  "rename_reason": "Preserve original contents without registering a second independently invocable skill."
+}

@@ -1,0 +1,3 @@
+latex-paper-studio/assets/vendor/** -whitespace linguist-vendored
+latex-paper-studio/references/upstream/** -whitespace linguist-vendored
+latex-paper-studio/assets/app.js -whitespace linguist-generated

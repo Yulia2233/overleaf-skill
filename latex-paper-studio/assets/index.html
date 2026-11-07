@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Paper Studio · LaTeX 论文工作台</title>
+  <link rel="stylesheet" href="/assets/vendor/text_layer.css">
+  <link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="brand-icon">P<span>·</span></span><div><strong>Paper Studio</strong><small>让研究，成为论文。</small></div></div>
+    <div class="project-heading"><span class="live-dot"></span><span id="project-name">正在载入项目</span><span class="local-badge">本地工作区</span></div>
+    <button id="export" class="button">导出 Overleaf ↗</button>
+  </header>
+  <main class="workspace">
+    <aside class="sidebar">
+      <div class="section-title"><span>项目文件</span><div><button id="new-file" class="icon-button" title="新建文件" aria-label="新建文件">＋</button><button id="upload" class="icon-button" title="导入文件" aria-label="导入文件">↑</button></div></div>
+      <input type="file" id="file-upload" hidden multiple>
+      <nav id="tree" aria-label="文件树"></nav>
+      <div class="sidebar-bottom"><div class="eyebrow">投稿规范</div><p id="venue-name">尚未选择会议或期刊</p><button id="rules" class="rules-link">查看规范与来源 →</button><div id="compliance" class="badge warning">规则待核实</div><p class="sidebar-hint">官方模板决定排版。<br>证据决定论文主张。</p></div>
+    </aside>
+    <section class="source-panel" aria-label="LaTeX 源码面板">
+      <div class="panel-toolbar"><div class="file-label"><span class="tex-icon">T<span>E</span>X</span><span id="filename">main.tex</span><span id="save-state"></span></div><div><button id="reload" class="quiet-button" title="重新载入磁盘文件">重载</button><button id="save" class="button small">保存 <kbd>⌘S</kbd></button></div></div>
+      <div id="editor" aria-label="LaTeX 编辑器"></div>
+      <div class="editor-footer"><span id="cursor-position">行 1，列 1</span><button id="annotate" class="quiet-button accent">＋ 批注选文 / 插入点</button></div>
+      <section class="annotations-panel">
+        <div class="annotation-header"><div><strong>修改批注</strong><span id="annotation-count" class="count">0</span></div><button id="submit" class="button primary small">提交批注</button></div>
+        <div id="agent-mode" class="agent-mode">当前对话处理 · 提交后在 Codex 中说“处理批注”</div>
+        <div id="annotations" class="annotation-list"><p class="empty-note">选中源码或 PDF 中的文字，写下你想修改的地方。</p></div>
+      </section>
+    </section>
+    <section class="preview-panel" aria-label="编译 PDF 预览">
+      <div class="panel-toolbar preview-toolbar"><div class="preview-label">PDF 预览 <span id="page-count"></span></div><div class="compile-controls"><button id="settings" class="quiet-button" title="编译设置">设置</button><button id="compile" class="button primary">编译 <span>▶</span></button></div></div>
+      <div class="preview-status"><span id="compile-state">等待编译</span><div><button id="logs" class="quiet-button">编译日志</button><select id="zoom" aria-label="PDF 缩放"><option value="fit">适合宽度</option><option value="1">100%</option><option value="1.25">125%</option><option value="1.5">150%</option></select></div></div>
+      <div id="pdf-pages"><div class="preview-empty"><span>∑</span><h2>从一个清晰的问题开始。</h2><p>编辑左侧源码，再点击「编译」。<br>右侧将呈现模板的真实排版。</p></div></div>
+      <div class="preview-footer">在 PDF 中选中文字，也可以添加批注。<button id="annotate-pdf" class="quiet-button accent">＋ 批注选文</button></div>
+    </section>
+  </main>
+  <dialog id="annotation-dialog"><form id="annotation-form"><div class="dialog-heading"><h2>添加修改批注</h2><button type="button" class="close-dialog" aria-label="关闭">×</button></div><div id="selection-origin" class="eyebrow"></div><blockquote id="selection-quote"></blockquote><label>修改标签<select id="tag"><option>润色</option><option>补充论证</option><option>压缩篇幅</option><option>术语统一</option><option>补充引用</option><option>公式解释</option><option>格式合规</option><option>插入内容</option><option>其他</option></select></label><label>具体要求<textarea id="instruction" rows="4" required placeholder="例如：用更清晰的语言解释这项设计的动机，保留原有技术含义。"></textarea></label><p class="form-note">不确定的数据或文献将保留为待补项。</p><div class="dialog-actions"><button type="button" class="button close-dialog">取消</button><button type="submit" class="button primary">保存批注</button></div></form></dialog>
+  <dialog id="settings-dialog"><form id="settings-form"><div class="dialog-heading"><h2>编译设置</h2><button type="button" class="close-dialog" aria-label="关闭">×</button></div><label>主文档<select id="main-file"></select></label><label>编译器<select id="engine"><option value="pdflatex">pdfLaTeX</option><option value="xelatex">XeLaTeX</option><option value="lualatex">LuaLaTeX</option></select></label><p class="form-note">以官方模板的要求为准。设置也会写入 Overleaf 导入说明。</p><div class="dialog-actions"><button type="submit" class="button primary">保存设置</button></div></form></dialog>
+  <dialog id="log-dialog" class="wide-dialog"><div class="dialog-heading"><h2>编译日志</h2><button class="close-dialog" aria-label="关闭">×</button></div><pre id="log-content">尚无编译日志</pre></dialog>
+  <div id="toast" role="status" aria-live="polite"></div>
+  <script type="module" src="/assets/app.js"></script>
+</body></html>
